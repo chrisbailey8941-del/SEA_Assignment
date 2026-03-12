@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add New Patient</title>
+</head>
+<body>
+    <h1>Add New Patient to Audit</h1>
+
+    <form method="POST">
+        <label>NHS Number (10 digits):</label><br>
+        <input type="text" name="nhs_number" required maxlength="10">
+        <br><br>
+
+        <label>Forename:</label><br>
+        <input type="text" name="forename" required>
+        <br><br>
+
+        <label>Surname:</label><br>
+        <input type="text" name="surname" required>
+        <br><br>
+
+        <label>Cancer Specialty:</label><br>
+        <select name="site_id" required>
+            <option value="">-- Select Specialty --</option>
+            {% for site in sites %}
+            <option value="{{ site.id }}">{{ site.site_name }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <label>T Stage:</label><br>
+        <select name="t_stage">
+            <option value="">-- Select --</option>
+            {% for stage in ['T1', 'T2', 'T3', 'T4', 'Tx'] %}
+            <option value="{{ stage }}">{{ stage }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <label>N Stage:</label><br>
+        <select name="n_stage">
+            <option value="">-- Select --</option>
+            {% for stage in ['N0', 'N1', 'N2', 'Nx'] %}
+            <option value="{{ stage }}">{{ stage }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <label>M Stage:</label><br>
+        <select name="m_stage">
+            <option value="">-- Select --</option>
+            {% for stage in ['M0', 'M1'] %}
+            <option value="{{ stage }}">{{ stage }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <label>Performance Status (0-4):</label><br>
+        <input type="number" name="performance_status" min="0" max="4">
+        <br><br>
+
+        <label>First Treatment Type:</label><br>
+        <input type="text" name="treatment">
+        <br><br>
+
+        <label>Seen by CNS?</label>
+        <input type="checkbox" name="cns_contact">
+        <br><br>
+
+        <button type="submit">Create Patient Record</button>
+        <a href="{{ url_for('index') }}">Cancel</a>
+    </form>
+</body>
+</html>

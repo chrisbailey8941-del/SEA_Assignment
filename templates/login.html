@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cancer Audit Login</title>
+</head>
+<body>
+    <h1>Cancer Audit System</h1>
+    <h3>Please Login</h3>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <p style="color: red; border: 1px solid red; padding: 5px; width: fit-content;">
+            {{ message }}
+          </p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+        <div>
+            <label>Username:</label><br>
+            <input type="text" name="username" required>
+        </div>
+        <br>
+        <div>
+            <label>Password:</label><br>
+            <input type="password" name="password" required>
+        </div>
+        <br>
+        <button type="submit">Enter System</button>
+    </form>
+
+    <hr>
+    <p><small>Demo Credentials:<br>
+    Admin: <strong>admin_user</strong> / Admin123<br>
+    Staff: <strong>staff_user</strong> / Staff456</small></p>
+</body>
+</html>

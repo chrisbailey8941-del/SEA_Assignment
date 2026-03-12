@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Patient Audit</title>
+</head>
+<body>
+    <h1>Edit Record: {{ patient.surname }}, {{ patient.forename }}</h1>
+    <p>NHS Number: {{ patient.nhs_number }}</p>
+
+    <form method="POST">
+        <label>Cancer Specialty:</label><br>
+        <select name="site_id">
+            {% for site in sites %}
+            <option value="{{ site.id }}" {% if patient.site_id == site.id %}selected{% endif %}>
+                {{ site.site_name }}
+            </option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <label>T Stage:</label><br>
+        <select name="t_stage">
+            <option value="" {% if not patient.t_stage %}selected{% endif %}>-- Select --</option>
+            {% for stage in ['T1', 'T2', 'T3', 'T4', 'Tx'] %}
+            <option value="{{ stage }}" {% if patient.t_stage == stage %}selected{% endif %}>{{ stage }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <label>N Stage:</label><br>
+        <select name="n_stage">
+            <option value="" {% if not patient.n_stage %}selected{% endif %}>-- Select --</option>
+            {% for stage in ['N0', 'N1', 'N2', 'Nx'] %}
+            <option value="{{ stage }}" {% if patient.n_stage == stage %}selected{% endif %}>{{ stage }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <label>M Stage:</label><br>
+        <select name="m_stage">
+            <option value="" {% if not patient.m_stage %}selected{% endif %}>-- Select --</option>
+            {% for stage in ['M0', 'M1'] %}
+            <option value="{{ stage }}" {% if patient.m_stage == stage %}selected{% endif %}>{{ stage }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <label>Performance Status (0-4):</label><br>
+        <input type="number" name="performance_status" min="0" max="4" value="{{ patient.performance_status }}">
+        <br><br>
+
+        <label>First Treatment Type:</label><br>
+        <input type="text" name="treatment" value="{{ patient.first_treatment_type if patient.first_treatment_type else '' }}">
+        <br><br>
+
+        <label>Seen by CNS?</label>
+        <input type="checkbox" name="cns_contact" {{ 'checked' if patient.cns_contact }}>
+        <br><br>
+
+        <button type="submit">Save Audit Data</button>
+        <a href="{{ url_for('index') }}">Cancel</a>
+    </form>
+</body>
+</html>
